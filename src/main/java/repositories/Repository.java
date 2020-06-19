@@ -17,7 +17,7 @@ public class Repository<T> {
     }
 
     public boolean exist(int id){
-        return this.dao.exist(id);
+        return this.dao.exist(id, this.classToManage);
     }
 
     public T find(int id){
