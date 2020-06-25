@@ -15,7 +15,6 @@ public class DAOHibernate implements IDAO{
     @Override
     public Object find(int id, Class clase) {
         Object o = EntityManagerHelper.entityManager().find(clase, id);
-        EntityManagerHelper.closeEntityManager();
         return o;
     }
 
@@ -23,7 +22,6 @@ public class DAOHibernate implements IDAO{
     public List findAll(Class clase) {
         Query query = EntityManagerHelper.createQuery("from " + clase.getName());
         List result = query.getResultList();
-        EntityManagerHelper.closeEntityManager();
         return result;
     }
 
