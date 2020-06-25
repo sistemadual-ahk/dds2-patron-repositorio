@@ -1,6 +1,5 @@
 package repositories.daos;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -8,18 +7,24 @@ public class DAOHibernate implements IDAO{
 
     @Override
     public boolean exist(int id, Class clase) {
-        return EntityManagerHelper.entityManager().find(clase, id) != null;
+        boolean result = EntityManagerHelper.entityManager().find(clase, id) != null;
+        EntityManagerHelper.closeEntityManager();
+        return result;
     }
 
     @Override
     public Object find(int id, Class clase) {
-        return EntityManagerHelper.entityManager().find(clase, id);
+        Object o = EntityManagerHelper.entityManager().find(clase, id);
+        EntityManagerHelper.closeEntityManager();
+        return o;
     }
 
     @Override
     public List findAll(Class clase) {
         Query query = EntityManagerHelper.createQuery("from " + clase.getName());
-        return query.getResultList();
+        List result = query.getResultList();
+        EntityManagerHelper.closeEntityManager();
+        return result;
     }
 
     @Override
